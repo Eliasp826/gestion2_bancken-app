@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\EmpresasFilter;
+use App\Http\Resources\Empresas\EmpresasCollection;
 use App\Models\Empresas;
 use App\Http\Requests\StoreEmpresasRequest;
 use App\Http\Requests\UpdateEmpresasRequest;
+use Illuminate\Http\Request;
 
 class EmpresasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filter = new EmpresasFilter();
+        $queryItems = $filter->transform($request);
+
+        $empresas = Empresas::where($queryItems);
+        return new EmpresasCollection($empresas->paginate(15)->appends($request->query()));
+
     }
 
     /**

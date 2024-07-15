@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Contacto\ContactoCollection;
 use App\Models\Contacto;
 use App\Http\Requests\StoreContactoRequest;
 use App\Http\Requests\UpdateContactoRequest;
@@ -13,7 +14,8 @@ class ContactoController extends Controller
      */
     public function index()
     {
-        //
+        $contactos = Contacto::paginate();
+        return new ContactoCollection($contactos);
     }
 
     /**

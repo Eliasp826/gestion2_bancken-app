@@ -9,6 +9,7 @@ class Empresas extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'provincia_id',
         'nombre_empresa',
         'direccion',
         'telefono',
@@ -24,10 +25,10 @@ class Empresas extends Model
     ];
 
     // Relaciones de tablas
-    //public function  reservaciones()
-    //{
-      //  return $this->hasMany(Reservaciones::class);
-    //}
+    public function  provincia()
+    {
+        return $this->hasMany(Provincia::class);
+    }
 
     //public function contacto()
     //{
