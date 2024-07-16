@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Filters\EmpresasFilter;
-use App\Http\Resources\Empresas\EmpresasCollection;
+use App\Http\Resources\EmpresasCollect\EmpresasCollection;
+use App\Http\Resources\EmpresasResou\EmpresasResource;
 use App\Models\Empresas;
 use App\Http\Requests\StoreEmpresasRequest;
 use App\Http\Requests\UpdateEmpresasRequest;
@@ -16,11 +17,25 @@ class EmpresasController extends Controller
      */
     public function index(Request $request)
     {
+        //$filter = new EmpresasFilter();
+        //$queryItems = $filter->transform($request);
+        //if(count($queryItems) == 0){
+          //  return new EmpresasCollection(Empresas::paginate());
+        //}
+        //else
+        //{
+          //  $empresas = Empresas::where($queryItems)->paginate();
+            //return new EmpresasCollection($empresas->appends($request->query()));
+        //}
+
         $filter = new EmpresasFilter();
         $queryItems = $filter->transform($request);
-
+        $includeContacto = $request->query('includeContacto');
         $empresas = Empresas::where($queryItems);
-        return new EmpresasCollection($empresas->paginate(15)->appends($request->query()));
+        if ($includeContacto) {
+            $empresas = $empresas->with('contacto');
+        }
+        return new EmpresasCollection($empresas->paginate()->appends($request->query()));
 
     }
 
@@ -45,7 +60,7 @@ class EmpresasController extends Controller
      */
     public function show(Empresas $empresas)
     {
-        //
+        return new EmpresasResource($empresas);
     }
 
     /**

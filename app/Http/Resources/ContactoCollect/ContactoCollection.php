@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Empresas;
+namespace App\Http\Resources\ContactoCollect;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class EmpresasCollection extends ResourceCollection
+class ContactoCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

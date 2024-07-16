@@ -6,6 +6,7 @@ use App\Filters\ApiFilter;
 class ContactoFilter extends ApiFilter
 {
     protected $safeParams = [
+        'empresasid' => ['eq'],
         'nombres' => ['eq', 'like'],
         'apellidos' => ['eq', 'like'],
         'sexo' => ['eq', 'like'],
@@ -20,7 +21,7 @@ class ContactoFilter extends ApiFilter
     ];
 
     protected $columnMap = [
-        'empresas_id' => 'empresa_id',
+        'empresasid' => 'empresas_id',
     ];
 
     protected $operatorMap = [

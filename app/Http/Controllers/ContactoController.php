@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Filters\ContactoFilter;
-use App\Http\Resources\Contacto\ContactoCollection;
+use App\Http\Resources\ContactoCollect\ContactoCollection;
+use App\Http\Resources\ContactoResou\ContactoResource;
 use App\Models\Contacto;
 use App\Http\Requests\StoreContactoRequest;
 use App\Http\Requests\UpdateContactoRequest;
+use App\Models\Empresas;
 use Illuminate\Http\Request;
 
 class ContactoController extends Controller
@@ -16,16 +18,26 @@ class ContactoController extends Controller
      */
     public function index(Request $request)
     {
+        //$filter = new ContactoFilter();
+        //$queryItems = $filter->transform($request);
+        //$includeEmpresas = $request->query('includeEmpresas');
+        //$contacto = Contacto::where($queryItems);
+        //if ($includeEmpresas) {
+            //$contacto = $contacto->with('empresas');
+        //}
+        //return new ContactoCollection($contacto->paginate()->appends($request->query()));
+
+
         $filter = new ContactoFilter();
         $queryItems = $filter->transform($request);
         if(count($queryItems) == 0) {
             return new ContactoCollection(Contacto::paginate());
         }
-            else
+        else
             {
-                $contacto = Contacto::where($queryItems)->paginate();
-                return new ContactoCollection($contacto->appends($request->query()));
-            }
+              $contacto = Contacto::where($queryItems)->paginate();
+              return new ContactoCollection($contacto->appends($request->query()));
+           }
         }
 
     /**
@@ -49,7 +61,11 @@ class ContactoController extends Controller
      */
     public function show(Contacto $contacto)
     {
-        //
+        $includeEmpresas = request()->query('includeEmpresas');
+        if($includeEmpresas) {
+            return new contactoResource($contacto->loadMissing('empresas'));
+        }
+        return new contactoResource($contacto);
     }
 
     /**
