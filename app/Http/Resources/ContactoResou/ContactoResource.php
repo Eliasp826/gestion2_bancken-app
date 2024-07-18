@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\ContactoResou;
 
+use App\Http\Resources\EmpresasResou\EmpresasResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,7 +31,8 @@ class ContactoResource extends JsonResource
             'fecha_nacimiento' => $this->fecha_nacimiento,
             'fecha_ingreso' => $this->fecha_ingreso,
             'estatus' => $this->estatus,
-            'cambios' => $this->cambios
+            'cambios' => $this->cambios,
+            'empresas' => EmpresasResource::collection($this->whenLoaded('empresas'))
         ];
     }
 }
