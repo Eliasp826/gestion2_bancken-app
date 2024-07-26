@@ -5,6 +5,7 @@ namespace App\Http\Resources\ContactoResou;
 use App\Http\Resources\EmpresasResou\EmpresasResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Empresas;
 
 class ContactoResource extends JsonResource
 {
@@ -16,8 +17,7 @@ class ContactoResource extends JsonResource
     public function toArray(Request $request): array
     {
         return[
-            'contacto_id' => $this->contacto_id,
-            'empresas_id' => $this->empresas_id,
+            'id' => $this->id,
             'nombres' => $this->nombres,
             'apellidos' => $this->apellidos,
             'sexo' => $this->sexo,
@@ -32,7 +32,7 @@ class ContactoResource extends JsonResource
             'fecha_ingreso' => $this->fecha_ingreso,
             'estatus' => $this->estatus,
             'cambios' => $this->cambios,
-            'empresas' => EmpresasResource::collection($this->whenLoaded('empresas'))
+            'empresas' => new EmpresasResource($this->whenLoaded('empresas')),
         ];
     }
 }

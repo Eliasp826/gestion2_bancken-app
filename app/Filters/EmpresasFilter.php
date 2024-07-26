@@ -17,7 +17,7 @@ class EmpresasFilter extends ApiFilter
 
     protected $columnMap = [
         'rnc' => 'rnc',
-        'nombre_empresa' => 'nombre_empresa',
+        'nombreempresa' => 'nombre_empresa',
     ];
 
     protected $operatorMap = [

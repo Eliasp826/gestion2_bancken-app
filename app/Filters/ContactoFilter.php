@@ -7,10 +7,10 @@ class ContactoFilter extends ApiFilter
 {
     protected $safeParams = [
         'empresasid' => ['eq'],
-        'nombres' => ['eq', 'like'],
-        'apellidos' => ['eq', 'like'],
-        'sexo' => ['eq', 'like'],
-        'cargo' => ['eq', 'like'],
+        'nombres' => ['like'],
+        'apellidos' => ['like'],
+        'sexo' => ['eq'],
+        'cargo' => ['like'],
         'correo_electronico' => ['eq', 'like'],
         'correo_electronico2' => ['eq', 'like'],
         'telefono' => ['eq', 'gt', 'lt'],
@@ -22,6 +22,8 @@ class ContactoFilter extends ApiFilter
 
     protected $columnMap = [
         'empresasid' => 'empresas_id',
+        'correoelectronico' => 'correo_electronico',
+        'correo_electronico2' => 'correo_electronico2',
     ];
 
     protected $operatorMap = [
@@ -32,4 +34,5 @@ class ContactoFilter extends ApiFilter
         'gte' => '>=',
         'ne' => '!=',
     ];
+
 }

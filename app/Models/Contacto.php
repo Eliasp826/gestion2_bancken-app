@@ -34,6 +34,6 @@ class Contacto extends Model
     // relaciones de tablas
     public function empresas()
     {
-        return $this->hasMany(Empresas::class);
+        return $this->belongsTo(Empresas::class);
     }
 }

@@ -27,7 +27,6 @@ class ContactoController extends Controller
         //}
         //return new ContactoCollection($contacto->paginate()->appends($request->query()));
 
-
         $filter = new ContactoFilter();
         $queryItems = $filter->transform($request);
         if(count($queryItems) == 0) {
